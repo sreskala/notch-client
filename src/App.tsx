@@ -2,9 +2,16 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 
 import axios from "axios";
-import { Container, Typography, Box, Slider } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  Slider,
+  CircularProgress,
+} from "@mui/material";
 import { Post } from "./types/post";
 import Navbar from "./components/navbar/Navbar";
+import PostsContainer from "./containers/PostsContainer";
 
 function App() {
   const [loading, setLoading] = useState<boolean>();
@@ -20,7 +27,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <CircularProgress color="success" />;
   }
 
   return (
@@ -31,7 +38,7 @@ function App() {
           Notch App
         </Typography>
 
-        {posts && posts.map((post: Post) => <h5>{post.title}</h5>)}
+        <PostsContainer posts={posts} />
 
         <Box width={300} alignContent="center">
           <Slider
